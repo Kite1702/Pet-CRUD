@@ -26,9 +26,9 @@ class Worker
         $id = (int)$id;
 
         $product = $conn->query("SELECT * FROM product WHERE `id` = {$id}")->findOrFail();
+        $product['img'] = 'data:image/jpeg;base64,' . base64_encode($product['img']);
 
-
-        //require_once VIEW . "worker/worker.php";
+        require_once VIEW . "worker/update.php";
 
     }
 
@@ -70,6 +70,21 @@ class Worker
 
     public static function update()
     {
+
+        global $conn;
+
+        $id = $_POST["id"];
+        $name = $_POST["name"];
+        $description = $_POST["description"];
+        $price = $_POST["price"];
+
+        try {
+            $conn->query("UPDATE `product` SET `name`='{$name}',`price`='{$price}',`description`='{$description}'  WHERE {$id}");
+        }catch (\PDOException $e){
+            echo "Error with update";
+        }
+
+        header("Location: /worker.main");
 
     }
 

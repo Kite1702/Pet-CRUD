@@ -26,9 +26,9 @@ class Product
 
         $id = (int)$product["id"];
 
-        $product = $conn->query("SELECT * FROM product WHERE `id` = {$id}")->findOrFail();
-        $product['img'] = 'data:image/jpeg;base64,' . base64_encode($product['img']);
+        $product = $conn->query("SELECT * FROM product WHERE `id` = {$id}");
 
+        $product['img'] = 'data:image/jpeg;base64,' . base64_encode($product['img']);
         require_once VIEW . "product.php";
     }
 
